@@ -19,9 +19,9 @@ pipeline {
       }
     }
 
-    stage('deploy') {
+    stage('pwd') {
       steps {
-        sh 'serve -s build'
+        sh 'pwd'
       }
     }
 
