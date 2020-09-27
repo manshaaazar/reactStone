@@ -24,9 +24,15 @@ pipeline {
       }
     }
 
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
     stage('deploy') {
       steps {
-        sh 'npm start'
+        sh 'server -s build'
       }
     }
 
