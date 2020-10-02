@@ -1,24 +1,19 @@
 pipeline {
   agent any
   stages {
-    stage('clone') {
-      steps {
-        git(url: 'https://github.com/manshaaazar/react-dep.git', branch: 'master')
-      }
+   
     }
 
-    stage('install dep') {
+    stage('npm install') {
       steps {
+        nodejs('Node-10.22'){
+          
         sh 'npm install '
+        sh 'npm --version'
+        sh 'npm build'
+        }
       }
     }
-
-    stage('build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-
     stage('pwd') {
       steps {
         sh 'pwd'
