@@ -14,7 +14,7 @@ agent any
     stage('npm build'){
       steps{
       nodejs('Node-10.22'){
-      sh'npm build'
+      sh'npm run build'
       }
       }
     }
