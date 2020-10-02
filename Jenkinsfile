@@ -1,24 +1,20 @@
-pipeline {
-  agent any
-  stages {
-   
-    }
-
-    stage('npm install') {
-      steps {
-        nodejs('Node-10.22'){
-          
-        sh 'npm install '
-        sh 'npm --version'
-        sh 'npm build'
-        }
+pipeline{
+agent any
+  envoitnment{}
+  tools{}
+  stages{
+    stage('npm install'){
+      nodejs('Node-10.22'){
+        sh'npm install'
+        sh'npm --version'
+        sh'whoami'
+        sh'pwd'
       }
     }
-    stage('pwd') {
-      steps {
-        sh 'pwd'
+    stage('npm build'){
+      nodejs('Node-10.22'){
+      sh'npm build'
       }
     }
-
   }
 }
