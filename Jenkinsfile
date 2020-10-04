@@ -10,13 +10,6 @@ agent any
       }
       }
     }
-    stage('npm build'){
-      steps{
-        // providing tool to perform commands 
-      nodejs('Node-10.22'){
-       sh'npm run build'
-      }
-      }
-    }
+   
   }
 }
