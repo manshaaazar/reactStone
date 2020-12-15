@@ -1,0 +1,9 @@
+
+  .git
+.cache
+*.md
+!README*.md
+README-secret.md
+node_modules
+package-lock.json
+  
