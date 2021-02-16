@@ -18,8 +18,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      - name: directory
+        run: ls -a
       - name: Creating Dockerfile
         uses: finnp/create-file-action@master
         env:
           FILE_NAME: './Dockerfile'
-          FILE_DATA: 'file-content'  
+          FILE_DATA: 'file-content' 
+      - name: directoruy
+        run: ls -a   
+      - name: dockerfile content  
+        run: cat Dockerfile
