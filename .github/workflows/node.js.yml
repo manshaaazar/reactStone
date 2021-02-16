@@ -1,31 +1,47 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
-
+name: React CI
 on:
   push:
-    branches: [ master ]
-
+    branches: [master]
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - name: directory
-        run: ls -a
+      - name: Cloning Code
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Creating Dockerfile
         uses: finnp/create-file-action@master
         env:
-          FILE_NAME: './Dockerfile'
-          FILE_DATA: 'file-content' 
-      - name: directoruy
-        run: ls -a   
-      - name: dockerfile content  
-        run: cat Dockerfile
+           FILE_NAME: './Dockerfile'
+           FILE_DATA: 'file-contemt'
+      - name: Creating .dockerignore File 
+        uses: finnp/create-file-action@master
+        env:
+          FILE_NAME: './.dockerignore'
+          FILE_DATA: 'file-content'
+      - name: Setting Up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Setting up Docker
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with: 
+          username: ${{secrets.docker_username}}
+          password: ${{secrets.docker_password}}
+      - name: Build and Publish
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: manshaehsan/knight:d-image   
+      - name: Image Digest
+        run: echo ${{steps.docker_build.outputs.digest}} 
+       
